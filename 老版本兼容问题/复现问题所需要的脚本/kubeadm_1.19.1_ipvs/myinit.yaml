@@ -1,0 +1,68 @@
+# apiVersion: kubeadm.k8s.io/v1beta2
+# kind: InitConfiguration
+# localAPIEndpoint:
+  # advertiseAddress: 10.1.1.111
+  # bindPort: 6443
+# nodeRegistration:
+  # taints:
+  # - effect: NoSchedule
+    # key: node-role.kubernetes.io/master
+# ---
+# apiVersion: kubeadm.k8s.io/v1beta2
+# imageRepository: k8s.gcr.io
+# kind: ClusterConfiguration
+# kubernetesVersion: v1.19.1
+# apiServer:
+# certSANs:
+# - localhost
+# - 127.0.0.1
+# - 10.1.1.111
+# - 43.128.252.173
+# extraArgs:
+# authorization-mode: Node,RBAC
+# timeoutForControlPlane: 4m0s
+# networking:
+  # podSubnet: 10.44.0.0/16
+  # serviceSubnet: 10.45.0.0/16
+# ---  
+# apiVersion: kubeproxy.config.k8s.io/v1alpha1  
+# kind: KubeProxyConfiguration  
+# featureGates:  
+  # SupportIPVSProxyMode: true  
+# mode: ipvs
+
+
+
+
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 10.1.1.111
+  bindPort: 6443
+nodeRegistration:
+  taints:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+imageRepository: k8s.gcr.io
+kind: ClusterConfiguration
+kubernetesVersion: v1.19.1
+apiServer:
+  certSANs:
+  - localhost
+  - 127.0.0.1
+  - 10.1.1.111
+  - 43.128.252.173
+  extraArgs:
+    authorization-mode: Node,RBAC
+  timeoutForControlPlane: 4m0s
+networking:
+  podSubnet: 10.44.0.0/16
+  serviceSubnet: 10.45.0.0/16
+---  
+apiVersion: kubeproxy.config.k8s.io/v1alpha1  
+kind: KubeProxyConfiguration  
+featureGates:  
+  SupportIPVSProxyMode: true  
+mode: ipvs
